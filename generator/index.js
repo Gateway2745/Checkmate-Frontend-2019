@@ -221,21 +221,6 @@ var HOME_ZONE = {
 };
 
 
-
-// Generate goal zone.
-var GOAL_SEED = randomId();
-var GOAL_ZONE = {
-  IS_GOAL: true,
-  environment: 'preset: goldmine; seed: 664; skyColor: #361c1b; horizonColor: #943842; lighting: none; fog: 0.669; flatShading: false; playArea: 1.5; groundYScale: 20.18; groundColor: #361c1b; groundColor2: #38292b; dressing: cubes; dressingAmount: 100; dressingColor: #d19747; dressingScale: 3.65; dressingVariance: 2 2 2; dressingOnPlayArea: 0.0',
-  links: [],
-  name: planets[5],
-  sectorType: 'goldmine',
-  seed: GOAL_SEED,
-  song: `https://supermedium.com/oasis-audio/jump.mp3`,
-  url: `../oasis/${GOAL_SEED}.html`
-};
-ZONES[GOAL_SEED] = GOAL_ZONE;
-
 // Add goal link to random zone. Walk from the home zone.
 // var preGoalZone = ZONES[randomArray(HOME_ZONE.links).zone.seed];
 // for (var i = 0; i < 50; i++) {
@@ -253,13 +238,12 @@ SECTOR_PAGES.forEach(sector => {
   for (i = 0; i < 2; i++) {
     hintZone = randomArray(sector);
     hintZone.hasHint = true;
-    hintZone.inThisSector = GOAL_ZONE.sectorType === sector[0].sectorType;
     console.log(`Added hint to: ${hintZone.seed}. In this sector: ${hintZone.inThisSector}.`);
   }
 });
 
 // Compile final data structure.
-var DATA = {HOME: HOME_ZONE, SECTORS: WORLDS, GOAL: GOAL_ZONE};
+var DATA = {HOME: HOME_ZONE, SECTORS: WORLDS,};
 
 // Write JSON.
 fs.writeFileSync('oasis.json', JSON.stringify(DATA));
@@ -271,17 +255,12 @@ function generate (data) {
   var html;
   var template;
 
-  template = fs.readFileSync('./src/index.html', 'utf-8');
+  template = fs.readFileSync('./src/game.html', 'utf-8');
 
   // Write home.
   html = nunjucks.renderString(template, data.HOME);
-  // html = htmlMinify(html, htmlMinifyConfig);
-  fs.writeFileSync(`index.html`, html);
-
-  // Write goal.
-  html = nunjucks.renderString(template, data.GOAL);
   html = htmlMinify(html, htmlMinifyConfig);
-  fs.writeFileSync(`oasis/${data.GOAL.seed}.html`, html);
+  fs.writeFileSync(`game.html`, html);
 
   // Write sectors.
   data.SECTORS.forEach(pageData => {

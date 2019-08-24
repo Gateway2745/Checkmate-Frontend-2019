@@ -12,7 +12,7 @@ var cacheFirstFiles = [
 
 var networkFirstFiles = [
   'build/build.js?v={{ DATETIME }}',
-  'index.html'
+  'game.html'
 ];
 
 self.addEventListener('fetch', event => {
