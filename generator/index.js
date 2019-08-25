@@ -255,12 +255,12 @@ function generate (data) {
   var html;
   var template;
 
-  template = fs.readFileSync('./src/game.html', 'utf-8');
+  template = fs.readFileSync('./src/index.html', 'utf-8');
 
   // Write home.
   html = nunjucks.renderString(template, data.HOME);
   html = htmlMinify(html, htmlMinifyConfig);
-  fs.writeFileSync(`game.html`, html);
+  fs.writeFileSync(`index.html`, html);
 
   // Write sectors.
   data.SECTORS.forEach(pageData => {
