@@ -10,9 +10,18 @@ AFRAME.registerComponent('ques-box', {
         console.log('els are '+ `${el}`)
         console.log('ids are '+ `#modal-${(el.id).replace( /^\D+/g, '')}`)
         el.addEventListener('click', () => {
-          
           $(`#modal-${(el.id).replace( /^\D+/g, '')}`).modal()
         })
       })
-}
+
+      document.addEventListener('keydown', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        if (e.ctrlKey && e.keyCode == 76) {
+          $(`#modalCart`).modal()
+        }
+      })  
+  }
+  
+
 })
