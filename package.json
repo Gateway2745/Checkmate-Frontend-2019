@@ -9,7 +9,7 @@
     "generate": "node generator/index.js",
     "minifyImages": "node scripts/minifyImages.js",
     "predeploy": "npm run build && shx mkdir -p .ghpages && cp -r oasis *.html assets build .ghpages",
-    "regenerate": "shx rm -f oasis/* && shx rm -f oasis.json && node generator/index.js",
+    "regenerate": "shx rm -f oasis/* && shx rm -f oasis.json && node generator/izdex.js",
     "start": "webpack-dev-server --host 127.0.0.1 --progress --colors --hot --inline --port 3000"
   },
   "dependencies": {

@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    <script src="https://rawgit.com/ngokevin/aframe/posfirstdist/dist/aframe-master.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <script src="https://rawgit.com/ngokevin/aframe/posfirstdist/dist/aframe-master.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet"> 
-   
+    <!-- <link rel="stylesheet" href="./css/leaderboard.css"> -->
+
     <script src="{{ ROOT }}build/socket.io.min.js"></script>
     <script src="{{ ROOT }}build/easyrtc.js"></script>
     <script src="{{ ROOT }}build/build.js"></script>
-    <script src="https://poc.virtuleap.com/library/gar-calculator-aframe.v1.0.min.js"></script>
+    
     {% if IS_PRODUCTION %}<style>.a-inspector-loader{ display: none; }</style>{% endif %}
 
 
@@ -28,6 +30,7 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'UA-111391431-8');
+ 
   </script> 
 
   <body>
@@ -38,8 +41,63 @@
       {{ question(i) }}
 
     {% endfor %}
-    
 
+    <!-- leaderboard modal-->
+
+    <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!--Header-->
+        <div class="modal-header">
+          <h4 class="modal-title text-center" id="myModalLabel">LEADERBOARD</h4>
+          </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+  
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>NAME</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>TEAM 1</td>
+                <td><a><i class="fas fa-times"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>TEAM 2</td>
+                <td><a><i class="fas fa-times"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>TEAM 3</td>
+                <td><a><i class="fas fa-times"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>TEAM 4</td>
+                <td><a><i class="fas fa-times"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+  
+        </div>
+        <!--Footer-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+ 
     <style>
       .modal-header {
         background-color: #22b9d4;
@@ -95,11 +153,6 @@
           <img id="logo" src="{{ ROOT }}assets/img/logo.png">
           <audio id="message" src="{{ ROOT }}assets/audio/message.mp3" preload="auto"></audio>
         {% endif %}
-        {% if IS_GOAL %}
-          <img src="{{ ROOT }}assets/img/envmap.jpg" id="envmapImg">
-          <img src="{{ ROOT }}assets/img/grad.png" id="gradImg">
-        {% endif %}
-
         <a-mixin id="font" text="font: {{ ROOT }}assets/fonts/KelsonSans.fnt; fontImage: {{ ROOT }}assets/fonts/KelsonSans.png"></a-mixin>
 
         <a-mixin id="slice" slice9="color: #050505; src: #sliceImg; left: 50; right: 52; top: 50; bottom: 52; padding: 0.04"></a-mixin>
@@ -251,10 +304,6 @@
         </a-entity>
       {% endif %}
 
-      {% if IS_GOAL %}
-        {% include "./templates/goal.html" %}
-      {% endif %}
-
       {% if not IS_PRODUCTION %}
         <a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: [raycastable]; recursive: false" debug-cursor></a-entity>
       {% endif %}raycaster
@@ -264,7 +313,17 @@
         
       </script>
     </a-scene>
-    
+    <script>
+      $('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+    </script>
   </body>
 
 </html>
