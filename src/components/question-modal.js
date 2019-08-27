@@ -15,8 +15,6 @@ AFRAME.registerComponent('ques-box', {
       })
 
       document.addEventListener('keydown', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
         if (e.ctrlKey && e.keyCode == 76) {
           $(`#modalCart`).modal()
         }
