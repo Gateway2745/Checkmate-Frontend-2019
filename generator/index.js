@@ -79,7 +79,7 @@ if (fs.existsSync('oasis.json')) {
 
 let SECTORS = [
   {environmentType: 'forest'},
-  {environmentType: 'tron'},
+  {environmentType: 'contact'},
   {environmentType: 'volcano'},
   {environmentType: 'arches'},
   {environmentType: 'japan'},
